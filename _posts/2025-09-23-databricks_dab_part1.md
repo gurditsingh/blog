@@ -98,6 +98,7 @@ Initializes a repo with a ready-to-run `databricks.yml` plus starter code, so yo
     -   A **Git URL** to a template repo (e.g., `https://github.com/my/repository`)
 -   `--output-dir` writes the scaffold into a specific folder (defaults to current directory).
 #### Examples
+
 ```bash
 # Pick from built-in templates via an interactive prompt
 databricks bundle init
@@ -108,6 +109,7 @@ databricks bundle init default-python
 # Create a dbt + SQL Warehouse project
 databricks bundle init dbt-sql
 ```
+
 ## Folder structure created (what you’ll see)
 Here’s what you typically get **immediately after** `databricks bundle init` with the default Python template—just the scaffold the template generates:
 ```bash
