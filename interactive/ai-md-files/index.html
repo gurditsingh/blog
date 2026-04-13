@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Prompt Chaos to Project Discipline</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121933;
+      --panel-2: #182145;
+      --text: #edf2ff;
+      --muted: #a9b4d0;
+      --accent: #7aa2ff;
+      --accent-2: #9d7aff;
+      --success: #36c78b;
+      --warn: #ffb454;
+      --danger: #ff6b6b;
+      --border: rgba(255,255,255,0.1);
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(122,162,255,0.18), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(157,122,255,0.18), transparent 28%),
+        linear-gradient(180deg, #090e1a 0%, #0b1020 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 36px;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, rgba(18,25,51,0.92), rgba(24,33,69,0.92));
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      padding: 38px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(122,162,255,0.14);
+      border: 1px solid rgba(122,162,255,0.3);
+      color: #dce6ff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin: 18px 0 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 60ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    button, .btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .18s ease, opacity .18s ease, background .18s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    button:hover, .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .visual {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 10px;
+      align-items: stretch;
+      min-height: 320px;
+    }
+
+    .state-box {
+      border-radius: 22px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .state-box h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .chaos { background: linear-gradient(180deg, rgba(255,107,107,0.08), rgba(255,180,84,0.05)); }
+    .discipline { background: linear-gradient(180deg, rgba(54,199,139,0.08), rgba(122,162,255,0.05)); }
+
+    .bubble, .file-chip, .drop-item {
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .bubble {
+      background: rgba(255,255,255,0.07);
+      color: #f1f5ff;
+      transform: rotate(calc(var(--r, 0) * 1deg));
+    }
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--warn);
+    }
+
+    .file-chip {
+      background: rgba(122,162,255,0.1);
+      color: #deebff;
+    }
+
+    section {
+      padding: 18px 0 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      margin-bottom: 22px;
+      max-width: 70ch;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: linear-gradient(180deg, rgba(18,25,51,0.95), rgba(18,25,51,0.82));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3, .card h4 { margin-top: 0; }
+    .muted { color: var(--muted); }
+    .small { font-size: 14px; }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .quiz-option {
+      width: 100%;
+      text-align: left;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .quiz-option.correct { background: rgba(54,199,139,0.16); border-color: rgba(54,199,139,0.55); }
+    .quiz-option.wrong { background: rgba(255,107,107,0.16); border-color: rgba(255,107,107,0.5); }
+
+    .feedback {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      display: none;
+      font-size: 14px;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.good { background: rgba(54,199,139,0.12); border: 1px solid rgba(54,199,139,0.4); }
+    .feedback.bad { background: rgba(255,107,107,0.12); border: 1px solid rgba(255,107,107,0.4); }
+
+    .repo-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .slots, .items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .slot {
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed rgba(255,255,255,0.25);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 84px;
+    }
+
+    .slot strong { display: block; margin-bottom: 8px; }
+
+    .drop-item {
+      background: rgba(122,162,255,0.12);
+      cursor: grab;
+      user-select: none;
+    }
+
+    .explorer-toggle {
+      display: inline-flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .toggle-btn {
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      border-color: transparent;
+    }
+
+    .repo-explorer {
+      display: none;
+    }
+
+    .repo-explorer.active {
+      display: block;
+    }
+
+    .tree {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 18px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #dfe8ff;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+
+    .tree-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .maturity-wrap {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .scoreboard {
+      position: sticky;
+      top: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .score-value {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1;
+      margin: 6px 0 10px;
+    }
+
+    .progress {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 10px 0 14px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(135deg, var(--success), var(--accent));
+      transition: width .25s ease;
+    }
+
+    .maturity-badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .challenge-card {
+      margin-bottom: 14px;
+    }
+
+    .challenge-card .quiz-option {
+      margin-top: 8px;
+    }
+
+    .drop-item:active { cursor: grabbing; }
+
+    .slot.over { border-color: var(--accent); background: rgba(122,162,255,0.08); }
+
+    .status {
+      margin-top: 16px;
+      font-weight: 700;
+    }
+
+    .compare {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .compare table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .compare th, .compare td {
+      padding: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    .compare th {
+      background: rgba(255,255,255,0.05);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: #d8e2ff;
+    }
+
+    .timeline-step {
+      border-left: 3px solid rgba(122,162,255,0.45);
+      padding-left: 16px;
+      margin-bottom: 18px;
+    }
+
+    code.inline {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: .94em;
+    }
+
+    footer {
+      padding: 24px 0 60px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 940px) {
+      .hero-grid, .grid-3, .grid-2, .repo-wrap { grid-template-columns: 1fr; }
+      .visual { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); min-height: 60px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-card">
+        <div class="hero-grid">
+          <div>
+            <div class="badge">Interactive companion page</div>
+            <h1>From Prompt Chaos to Project Discipline</h1>
+            <p class="sub">
+              Explore why modern engineering teams are moving from ad hoc prompting to repo-native AI markdown files such as <code class="inline">AGENTS.md</code>, rules, skills, workflows, and project context files.
+            </p>
+            <div class="hero-actions">
+              <a href="#quiz" class="btn btn-primary">Start interactive tour</a>
+              <a href="#repo-game" class="btn btn-secondary">Try the repo puzzle</a>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="state-box chaos">
+              <h3>Prompt Chaos</h3>
+              <div class="bubble" style="--r:-5">Write the script?</div>
+              <div class="bubble" style="--r:3">Explain the architecture?</div>
+              <div class="bubble" style="--r:-2">Generate a pipeline?</div>
+              <div class="bubble" style="--r:4">Wait, use Databricks?</div>
+              <div class="bubble" style="--r:-4">Oops, different output format</div>
+            </div>
+            <div class="arrow">➜</div>
+            <div class="state-box discipline">
+              <h3>Project Discipline</h3>
+              <div class="file-chip">AGENTS.md → repo entry point</div>
+              <div class="file-chip">Specs → source of truth</div>
+              <div class="file-chip">Rules → always-on behavior</div>
+              <div class="file-chip">Skills → reusable workflows</div>
+              <div class="file-chip">Tool adapters → Claude, Codex, Copilot, Cursor...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2 class="section-title">What problem are AI markdown files solving?</h2>
+      <p class="section-sub">
+        Enterprises are not struggling because models are weak. They are struggling because context is fragmented, repeated, and lost between sessions, tools, teams, and repositories.
+      </p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>Repeated prompting</h3>
+          <p class="muted">The same repository conventions, commands, and architecture notes get pasted again and again.</p>
+        </div>
+        <div class="card">
+          <h3>Unclear boundaries</h3>
+          <p class="muted">Agents mix architecture facts, team rules, and task-specific playbooks into one giant prompt.</p>
+        </div>
+        <div class="card">
+          <h3>Poor portability</h3>
+          <p class="muted">Teams use Codex, Claude, Copilot, Cursor, Windsurf, and Gemini CLI, but each tool needs the same project truth.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz">
+      <h2 class="section-title">Quick quiz: Spec, Rule, or Skill?</h2>
+      <p class="section-sub">Answer these to build the mental model. Each question shows where a piece of guidance belongs.</p>
+      <div class="grid grid-3">
+        <div class="card quiz-card" data-answer="rule">
+          <h3>Question 1</h3>
+          <p>“Run validation before finalizing implementation artifacts.”</p>
+          <button class="quiz-option" data-choice="spec">Spec</button>
+          <button class="quiz-option" data-choice="rule">Rule</button>
+          <button class="quiz-option" data-choice="skill">Skill</button>
+          <div class="feedback"></div>
+        </div>
+        <div class="card quiz-card" data-answer="skill">
+          <h3>Question 2</h3>
+          <p>“When an approved target-state template exists, generate Bronze, Silver, and Gold PySpark artifacts.”</p>
+          <button class="quiz-option" data-choice="spec">Spec</button>
+          <button class="quiz-option" data-choice="rule">Rule</button>
+          <button class="quiz-option" data-choice="skill">Skill</button>
+          <div class="feedback"></div>
+        </div>
+        <div class="card quiz-card" data-answer="spec">
+          <h3>Question 3</h3>
+          <p>“This project modernizes legacy ETL into Databricks Lakehouse architecture.”</p>
+          <button class="quiz-option" data-choice="spec">Spec</button>
+          <button class="quiz-option" data-choice="rule">Rule</button>
+          <button class="quiz-option" data-choice="skill">Skill</button>
+          <div class="feedback"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">How the hierarchy works</h2>
+      <p class="section-sub">The cleanest setup uses layered context instead of one giant instruction file.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Canonical layers</h3>
+          <div class="timeline-step"><strong>Specs</strong><br><span class="muted">Stable project truth: purpose, architecture, phases, commands, constraints.</span></div>
+          <div class="timeline-step"><strong>Rules</strong><br><span class="muted">Persistent behavior: validations, boundaries, response expectations, forbidden actions.</span></div>
+          <div class="timeline-step"><strong>Skills</strong><br><span class="muted">Reusable procedures: analyze ETL artifacts, create templates, design lakehouse layers, generate PySpark.</span></div>
+        </div>
+        <div class="card">
+          <h3>Practical mapping</h3>
+          <div class="pill-row">
+            <span class="pill">Codex → AGENTS.md + .codex + skills</span>
+            <span class="pill">Claude → CLAUDE.md + rules + skills</span>
+            <span class="pill">Copilot → repo instructions + path rules + prompt files</span>
+            <span class="pill">Cursor → rules + AGENTS.md</span>
+            <span class="pill">Windsurf → rules + workflows</span>
+            <span class="pill">Gemini CLI → GEMINI.md + skills</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="repo-game">
+      <h2 class="section-title">Repo puzzle: Put each file in the right place</h2>
+      <p class="section-sub">Drag the items into the correct bucket. This models the ETLModernization project layout at a high level.</p>
+      <div class="card">
+        <div class="repo-wrap">
+          <div class="slots">
+            <div class="slot" data-slot="spec"><strong>Specs</strong><span class="small muted">Source of truth for project and architecture.</span></div>
+            <div class="slot" data-slot="rule"><strong>Rules</strong><span class="small muted">Always-on behavior and constraints.</span></div>
+            <div class="slot" data-slot="skill"><strong>Skills</strong><span class="small muted">Reusable procedures and workflows.</span></div>
+            <div class="slot" data-slot="adapter"><strong>Tool adapters</strong><span class="small muted">Thin files for specific AI tools.</span></div>
+          </div>
+          <div>
+            <div class="items">
+              <div class="drop-item" draggable="true" data-type="adapter">CLAUDE.md</div>
+              <div class="drop-item" draggable="true" data-type="spec">ai/specs/project-spec.md</div>
+              <div class="drop-item" draggable="true" data-type="skill">.agents/skills/generate-databricks-pyspark/SKILL.md</div>
+              <div class="drop-item" draggable="true" data-type="rule">ai/rules/lakehouse-rules.md</div>
+              <div class="drop-item" draggable="true" data-type="adapter">.github/copilot-instructions.md</div>
+              <div class="drop-item" draggable="true" data-type="spec">ai/specs/lakehouse-architecture-spec.md</div>
+              <div class="drop-item" draggable="true" data-type="skill">.agents/skills/design-lakehouse-layers/SKILL.md</div>
+              <div class="drop-item" draggable="true" data-type="rule">ai/rules/validation-rules.md</div>
+            </div>
+            <div class="status" id="gameStatus">Placed correctly: 0 / 8</div>
+            <div class="hero-actions" style="margin-top:14px;">
+              <button id="resetGame" class="btn btn-secondary">Reset puzzle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="repo-explorer-section">
+      <h2 class="section-title">Before / After enterprise repo explorer</h2>
+      <p class="section-sub">See how enterprise teams evolve from scattered prompting to a disciplined, repo-native AI setup.</p>
+      <div class="card">
+        <div class="explorer-toggle">
+          <button class="btn toggle-btn active" data-view="before">Before: prompt-led repo</button>
+          <button class="btn toggle-btn" data-view="after">After: AI-native disciplined repo</button>
+        </div>
+
+        <div class="repo-explorer active" data-view="before">
+<pre class="tree">legacy-project/
+├── docs/
+│   └── notes-final-v2.md
+├── prompts/
+│   ├── prompt_latest.txt
+│   ├── databricks_prompt_new.txt
+│   ├── prompt_final_really_final.txt
+│   └── copied_from_chat.md
+├── scripts/
+│   ├── pipeline.py
+│   ├── pipeline_new.py
+│   └── pipeline_new_final.py
+├── random-context/
+│   ├── architecture_notes.docx
+│   ├── team_rules.txt
+│   └── output-format-example.md
+└── README.md</pre>
+          <div class="tree-note">Signals: duplicated prompts, unclear source of truth, no reusable task workflows, and no stable way to share context across Codex, Claude, Copilot, Cursor, Windsurf, or Gemini.</div>
+        </div>
+
+        <div class="repo-explorer" data-view="after">
+<pre class="tree">ETLModernization/
+├── AGENTS.md
+├── ai/
+│   ├── specs/
+│   │   ├── project-spec.md
+│   │   ├── phase-1-discovery-assessment.md
+│   │   ├── phase-2-implementation.md
+│   │   └── lakehouse-architecture-spec.md
+│   └── rules/
+│       ├── core-rules.md
+│       ├── discovery-rules.md
+│       ├── implementation-rules.md
+│       ├── lakehouse-rules.md
+│       └── validation-rules.md
+├── .agents/
+│   └── skills/
+│       ├── discover-legacy-artifacts/
+│       ├── create-target-state-template/
+│       ├── design-lakehouse-layers/
+│       └── generate-databricks-pyspark/
+├── .github/
+├── .cursor/
+├── .claude/
+├── .windsurf/
+├── .codex/
+└── modernization/</pre>
+          <div class="tree-note">Signals: one canonical source of truth, durable rules, reusable skills, thin tool adapters, and a repo structure that scales across teams and AI tools.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="maturity-game">
+      <h2 class="section-title">Mini game: Classify files and earn an AI maturity score</h2>
+      <p class="section-sub">Answer each scenario correctly to see how close your repository is to enterprise-grade AI project discipline.</p>
+      <div class="maturity-wrap">
+        <div>
+          <div class="card challenge-card maturity-card" data-answer="adapter">
+            <h3>Challenge 1</h3>
+            <p>Where does <code class="inline">CLAUDE.md</code> belong?</p>
+            <button class="quiz-option" data-choice="spec">Spec</button>
+            <button class="quiz-option" data-choice="rule">Rule</button>
+            <button class="quiz-option" data-choice="skill">Skill</button>
+            <button class="quiz-option" data-choice="adapter">Tool adapter</button>
+            <div class="feedback"></div>
+          </div>
+          <div class="card challenge-card maturity-card" data-answer="rule">
+            <h3>Challenge 2</h3>
+            <p>“Do not generate production ETL code during Discovery & Assessment unless explicitly requested.”</p>
+            <button class="quiz-option" data-choice="spec">Spec</button>
+            <button class="quiz-option" data-choice="rule">Rule</button>
+            <button class="quiz-option" data-choice="skill">Skill</button>
+            <button class="quiz-option" data-choice="adapter">Tool adapter</button>
+            <div class="feedback"></div>
+          </div>
+          <div class="card challenge-card maturity-card" data-answer="spec">
+            <h3>Challenge 3</h3>
+            <p>“This project modernizes legacy ETL into Databricks Lakehouse architecture with Bronze, Silver, and Gold layers.”</p>
+            <button class="quiz-option" data-choice="spec">Spec</button>
+            <button class="quiz-option" data-choice="rule">Rule</button>
+            <button class="quiz-option" data-choice="skill">Skill</button>
+            <button class="quiz-option" data-choice="adapter">Tool adapter</button>
+            <div class="feedback"></div>
+          </div>
+          <div class="card challenge-card maturity-card" data-answer="skill">
+            <h3>Challenge 4</h3>
+            <p>“When a target-state template exists, generate Databricks PySpark artifacts and mapping notes.”</p>
+            <button class="quiz-option" data-choice="spec">Spec</button>
+            <button class="quiz-option" data-choice="rule">Rule</button>
+            <button class="quiz-option" data-choice="skill">Skill</button>
+            <button class="quiz-option" data-choice="adapter">Tool adapter</button>
+            <div class="feedback"></div>
+          </div>
+          <div class="hero-actions" style="margin-top:14px;">
+            <button id="resetMaturity" class="btn btn-secondary">Reset maturity game</button>
+          </div>
+        </div>
+        <div class="scoreboard">
+          <div class="small muted">AI project maturity</div>
+          <div class="score-value" id="maturityScore">0%</div>
+          <div class="progress"><div class="progress-bar" id="maturityBar"></div></div>
+          <div class="maturity-badge" id="maturityBadge">Prompt-led</div>
+          <p class="muted" id="maturityText" style="margin-top:14px;">Answer the challenges to see whether your setup looks like ad hoc prompting, emerging discipline, or an enterprise-grade repo-native AI workflow.</p>
+          <div class="pill-row">
+            <span class="pill">0–25% → Prompt-led</span>
+            <span class="pill">26–50% → Early structure</span>
+            <span class="pill">51–75% → Team-ready</span>
+            <span class="pill">76–100% → Enterprise-grade</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">High-level ETLModernization example</h2>
+      <p class="section-sub">This project structure demonstrates how a real enterprise repo can separate project truth, behavior, and reusable workflows.</p>
+      <div class="card compare">
+        <table>
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Purpose</th>
+              <th>Example files</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Canonical entry point</td>
+              <td>Tell every agent what the repo is, how it works, and where to look next.</td>
+              <td><code class="inline">AGENTS.md</code></td>
+            </tr>
+            <tr>
+              <td>Specs</td>
+              <td>Store the stable project truth for both phases and the Lakehouse design.</td>
+              <td><code class="inline">ai/specs/project-spec.md</code>, <code class="inline">phase-1...</code>, <code class="inline">phase-2...</code></td>
+            </tr>
+            <tr>
+              <td>Rules</td>
+              <td>Keep persistent behavior concise and testable.</td>
+              <td><code class="inline">ai/rules/core-rules.md</code>, <code class="inline">lakehouse-rules.md</code></td>
+            </tr>
+            <tr>
+              <td>Skills</td>
+              <td>Package repeatable procedures like discovery, template generation, and Databricks PySpark generation.</td>
+              <td><code class="inline">.agents/skills/*/SKILL.md</code></td>
+            </tr>
+            <tr>
+              <td>Adapters</td>
+              <td>Map the same project into Codex, Claude, Copilot, Cursor, Windsurf, and Gemini CLI.</td>
+              <td><code class="inline">CLAUDE.md</code>, <code class="inline">.github/</code>, <code class="inline">.cursor/</code>, <code class="inline">.windsurf/</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Prompt-only vs disciplined repo-native setup</h2>
+      <p class="section-sub">A quick comparison of how teams evolve from experiments to enterprise usage.</p>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Prompt-only stage</h3>
+          <ul class="muted">
+            <li>Context lives in chat history</li>
+            <li>Conventions must be re-explained</li>
+            <li>Different tools drift apart</li>
+            <li>Hard to audit and review</li>
+            <li>Low repeatability across teams</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Repo-native discipline</h3>
+          <ul class="muted">
+            <li>Project truth lives in version-controlled files</li>
+            <li>Behavior becomes consistent</li>
+            <li>Portable skills reduce duplication</li>
+            <li>Tool adapters stay thin</li>
+            <li>Enterprise governance becomes practical</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">How to use this page</h2>
+      <p class="section-sub">You can host this on GitHub Pages as a blog companion or a standalone landing page for your article.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <h3>For readers</h3>
+          <p class="muted">Use it as a visual explanation of why AI markdown files matter.</p>
+        </div>
+        <div class="card">
+          <h3>For teams</h3>
+          <p class="muted">Use it during internal enablement sessions to explain Specs, Rules, and Skills.</p>
+        </div>
+        <div class="card">
+          <h3>For GitHub Pages</h3>
+          <p class="muted">Save as <code class="inline">index.html</code> and host directly from a repository branch.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container" style="padding:0; width:100%;">
+        Built as an interactive companion for the blog: <strong>From Prompt Chaos to Project Discipline</strong>.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('.quiz-card').forEach(card => {
+      const answer = card.dataset.answer;
+      const feedback = card.querySelector('.feedback');
+      card.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const choice = btn.dataset.choice;
+          card.querySelectorAll('.quiz-option').forEach(b => {
+            b.disabled = true;
+            if (b.dataset.choice === answer) b.classList.add('correct');
+          });
+          if (choice !== answer) btn.classList.add('wrong');
+
+          if (choice === answer) {
+            feedback.className = 'feedback show good';
+            feedback.textContent = `Correct. This belongs in a ${answer} because it defines ${answer === 'spec' ? 'stable project truth' : answer === 'rule' ? 'always-on behavior' : 'a reusable procedure'}.`;
+          } else {
+            feedback.className = 'feedback show bad';
+            feedback.textContent = `Not quite. This belongs in a ${answer}, not a ${choice}.`;
+          }
+        });
+      });
+    });
+
+    const explorerButtons = document.querySelectorAll('.toggle-btn');
+    const explorerViews = document.querySelectorAll('.repo-explorer');
+    explorerButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.dataset.view;
+        explorerButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        explorerViews.forEach(panel => {
+          panel.classList.toggle('active', panel.dataset.view === view);
+        });
+      });
+    });
+
+    const itemsContainer = document.querySelector('.items');
+    const slots = document.querySelectorAll('.slot');
+    const status = document.getElementById('gameStatus');
+    let dragged = null;
+
+    function updateStatus() {
+      const allItems = document.querySelectorAll('.drop-item');
+      let correct = 0;
+      allItems.forEach(item => {
+        const parent = item.parentElement;
+        if (parent.classList.contains('slot') && parent.dataset.slot === item.dataset.type) correct++;
+      });
+      status.textContent = `Placed correctly: ${correct} / ${allItems.length}`;
+      if (correct === allItems.length) {
+        status.textContent = 'Placed correctly: 8 / 8 — Nice. You now have a clean mental model for Specs, Rules, Skills, and adapters.';
+      }
+    }
+
+    document.querySelectorAll('.drop-item').forEach(item => {
+      item.addEventListener('dragstart', () => dragged = item);
+      item.addEventListener('dragend', () => dragged = null);
+    });
+
+    slots.forEach(slot => {
+      slot.addEventListener('dragover', e => {
+        e.preventDefault();
+        slot.classList.add('over');
+      });
+      slot.addEventListener('dragleave', () => slot.classList.remove('over'));
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        slot.classList.remove('over');
+        if (!dragged) return;
+        slot.appendChild(dragged);
+        updateStatus();
+      });
+    });
+
+    itemsContainer.addEventListener('dragover', e => e.preventDefault());
+    itemsContainer.addEventListener('drop', e => {
+      e.preventDefault();
+      if (dragged) itemsContainer.appendChild(dragged);
+      updateStatus();
+    });
+
+    document.getElementById('resetGame').addEventListener('click', () => {
+      const allItems = Array.from(document.querySelectorAll('.drop-item'));
+      allItems.forEach(item => itemsContainer.appendChild(item));
+      updateStatus();
+    });
+
+    const maturityCards = document.querySelectorAll('.maturity-card');
+    const maturityScore = document.getElementById('maturityScore');
+    const maturityBar = document.getElementById('maturityBar');
+    const maturityBadge = document.getElementById('maturityBadge');
+    const maturityText = document.getElementById('maturityText');
+
+    function renderMaturity() {
+      let correct = 0;
+      let answered = 0;
+      maturityCards.forEach(card => {
+        if (card.dataset.answered === 'true') {
+          answered++;
+          if (card.dataset.correct === 'true') correct++;
+        }
+      });
+      const total = maturityCards.length;
+      const score = Math.round((correct / total) * 100);
+      maturityScore.textContent = `${score}%`;
+      maturityBar.style.width = `${score}%`;
+
+      if (score <= 25) {
+        maturityBadge.textContent = 'Prompt-led';
+        maturityText.textContent = 'This looks like an early-stage setup where most context still lives in chats and repeated prompts.';
+      } else if (score <= 50) {
+        maturityBadge.textContent = 'Early structure';
+        maturityText.textContent = 'You are starting to separate concepts, but the repo still needs clearer project truth and reusable workflows.';
+      } else if (score <= 75) {
+        maturityBadge.textContent = 'Team-ready';
+        maturityText.textContent = 'Your setup is moving toward repeatable engineering discipline with clearer boundaries between specs, rules, skills, and adapters.';
+      } else {
+        maturityBadge.textContent = 'Enterprise-grade';
+        maturityText.textContent = 'This is close to the repo-native AI model enterprises want: canonical context, reusable skills, and thin tool-specific adapters.';
+      }
+
+      if (answered === 0) {
+        maturityText.textContent = 'Answer the challenges to see whether your setup looks like ad hoc prompting, emerging discipline, or an enterprise-grade repo-native AI workflow.';
+      }
+    }
+
+    maturityCards.forEach(card => {
+      const answer = card.dataset.answer;
+      const feedback = card.querySelector('.feedback');
+      card.querySelectorAll('.quiz-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (card.dataset.answered === 'true') return;
+          const choice = btn.dataset.choice;
+          card.dataset.answered = 'true';
+          card.dataset.correct = String(choice === answer);
+          card.querySelectorAll('.quiz-option').forEach(b => {
+            b.disabled = true;
+            if (b.dataset.choice === answer) b.classList.add('correct');
+          });
+          if (choice !== answer) btn.classList.add('wrong');
+
+          if (choice === answer) {
+            feedback.className = 'feedback show good';
+            feedback.textContent = `Correct. ${answer === 'adapter' ? 'This is a tool-specific entry file.' : answer === 'spec' ? 'This describes stable project truth.' : answer === 'rule' ? 'This is persistent behavior.' : 'This is a reusable task procedure.'}`;
+          } else {
+            feedback.className = 'feedback show bad';
+            feedback.textContent = `Not quite. The right classification is ${answer}.`;
+          }
+          renderMaturity();
+        });
+      });
+    });
+
+    document.getElementById('resetMaturity').addEventListener('click', () => {
+      maturityCards.forEach(card => {
+        card.dataset.answered = 'false';
+        card.dataset.correct = 'false';
+        const feedback = card.querySelector('.feedback');
+        feedback.className = 'feedback';
+        feedback.textContent = '';
+        card.querySelectorAll('.quiz-option').forEach(btn => {
+          btn.disabled = false;
+          btn.classList.remove('correct', 'wrong');
+        });
+      });
+      renderMaturity();
+    });
+
+    updateStatus();
+    renderMaturity();
+  </script>
+</body>
+</html>
