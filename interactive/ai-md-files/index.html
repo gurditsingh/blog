@@ -377,6 +377,337 @@
       margin-top: 8px;
     }
 
+    .tool-map {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .tool-node {
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      min-height: 150px;
+    }
+
+    .tool-node:hover {
+      transform: translateY(-2px);
+      border-color: rgba(122,162,255,0.55);
+      background: rgba(122,162,255,0.08);
+    }
+
+    .tool-node.active {
+      border-color: rgba(122,162,255,0.7);
+      background: linear-gradient(180deg, rgba(122,162,255,0.14), rgba(157,122,255,0.08));
+    }
+
+    .tool-name {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .tool-role {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tool-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--warn);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .tool-detail {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .simulator-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .sim-controls {
+      display: grid;
+      gap: 14px;
+    }
+
+    .sim-group {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .sim-group h4 {
+      margin: 0 0 10px;
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .choice-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .choice-chip input {
+      margin-top: 3px;
+      accent-color: #8faeff;
+    }
+
+    .sim-output {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      position: sticky;
+      top: 18px;
+    }
+
+    .sim-score {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1;
+      margin: 8px 0 10px;
+    }
+
+    .sim-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .sim-list li {
+      margin-bottom: 8px;
+    }
+
+    .tool-map {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .tool-node {
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      min-height: 150px;
+    }
+
+    .tool-node:hover {
+      transform: translateY(-2px);
+      border-color: rgba(122,162,255,0.55);
+      background: rgba(122,162,255,0.08);
+    }
+
+    .tool-node.active {
+      border-color: rgba(122,162,255,0.7);
+      background: linear-gradient(180deg, rgba(122,162,255,0.14), rgba(157,122,255,0.08));
+    }
+
+    .tool-name {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .tool-role {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tool-flow {
+      display: flex;
+      align-items:
+
+    .tool-map {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .tool-node {
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      min-height: 150px;
+    }
+
+    .tool-node:hover {
+      transform: translateY(-2px);
+      border-color: rgba(122,162,255,0.55);
+      background: rgba(122,162,255,0.08);
+    }
+
+    .tool-node.active {
+      border-color: rgba(122,162,255,0.7);
+      background: linear-gradient(180deg, rgba(122,162,255,0.14), rgba(157,122,255,0.08));
+    }
+
+    .tool-name {
+      f
+
+    .tool-map {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .tool-node {
+      position: relative;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+      min-height: 150px;
+    }
+
+    .tool-node:hover {
+      transform: translateY(-2px);
+      border-color: rgba(122,162,255,0.55);
+      background: rgba(122,162,255,0.08);
+    }
+
+    .tool-node.active {
+      border-color: rgba(122,162,255,0.7);
+      background: linear-gradient(180deg, rgba(122,162,255,0.14), rgba(157,122,255,0.08));
+    }
+
+    .tool-name {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .tool-role {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .tool-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--warn);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .tool-detail {
+      margin-top: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .simulator-layout {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .sim-controls {
+      display: grid;
+      gap: 14px;
+    }
+
+    .sim-group {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .sim-group h4 {
+      margin: 0 0 10px;
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .choice-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+
+    .choice-chip input {
+      margin-top: 3px;
+      accent-color: #8faeff;
+    }
+
+    .sim-output {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      position: sticky;
+      top: 18px;
+    }
+
+    .sim-score {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1;
+      margin: 8px 0 10px;
+    }
+
+    .sim-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .sim-list li {
+      margin-bottom: 8px;
+    }
+
     .drop-item:active { cursor: grabbing; }
 
     .slot.over { border-color: var(--accent); background: rgba(122,162,255,0.08); }
@@ -501,7 +832,52 @@
       </div>
     </section>
 
-    <section id="quiz">
+    <section id="tool-map-section">
+      <h2 class="section-title">AI tool map: one project, many agent surfaces</h2>
+      <p class="section-sub">Click each tool to see how the same project discipline shows up through different AI markdown files and adapters.</p>
+      <div class="card">
+        <div class="tool-map">
+          <div class="tool-node active" data-tool="codex">
+            <div class="tool-name">Codex</div>
+            <div class="tool-role">AGENTS.md + project config + portable skills</div>
+          </div>
+          <div class="tool-flow">→</div>
+          <div class="tool-node" data-tool="claude">
+            <div class="tool-name">Claude</div>
+            <div class="tool-role">CLAUDE.md + scoped rules + project skills</div>
+          </div>
+          <div class="tool-flow">→</div>
+          <div class="tool-node" data-tool="copilot">
+            <div class="tool-name">Copilot</div>
+            <div class="tool-role">Repo instructions + path rules + prompt files</div>
+          </div>
+          <div class="tool-node" data-tool="cursor">
+            <div class="tool-name">Cursor</div>
+            <div class="tool-role">Rules + AGENTS.md + reusable capabilities</div>
+          </div>
+          <div class="tool-flow">→</div>
+          <div class="tool-node" data-tool="windsurf">
+            <div class="tool-name">Windsurf</div>
+            <div class="tool-role">Rules + workflows + repo-native context</div>
+          </div>
+          <div class="tool-flow">→</div>
+          <div class="tool-node" data-tool="gemini">
+            <div class="tool-name">Gemini</div>
+            <div class="tool-role">GEMINI.md + settings + open-standard skills</div>
+          </div>
+        </div>
+        <div class="tool-detail" id="toolDetail">
+          <strong>Codex</strong><br>
+          Codex works best when the repo gives it durable context through <code class="inline">AGENTS.md</code>, project-scoped config, and portable skills. It is a strong anchor for a canonical source-of-truth setup.
+        </div>
+      </div>
+    </section>
+
+    <section id="tool-map-section">
+      <h2 class="section-title">AI tool map: one project, many agent surfaces</h2>
+      <p class="section-sub">Click each tool to see how the same project discipline shows up through different AI markdown files and adapters.</p>
+      <div class="card">
+        <div class="tool-map">
       <h2 class="section-title">Quick quiz: Spec, Rule, or Skill?</h2>
       <p class="section-sub">Answer these to build the mental model. Each question shows where a piece of guidance belongs.</p>
       <div class="grid grid-3">
@@ -649,7 +1025,25 @@
       </div>
     </section>
 
-    <section id="maturity-game">
+    <section id="repo-simulator">
+      <h2 class="section-title">Build-your-own AI repo simulator</h2>
+      <p class="section-sub">Choose what your repository should include. The simulator will score your setup and tell you whether it looks prompt-led, team-ready, or enterprise-grade.</p>
+      <div class="card simulator-layout">
+        <div class="sim-controls">
+          <div class="sim-group">
+            <h4>Canonical source of truth</h4>
+            <div class="choice-grid">
+              <label class="choice-chip"><input type="checkbox" class="sim-check" data-points="20" data-kind="good"><span><strong>AGENTS.md</strong><br><span class="small muted">Single repo entry point for every agent.</span></span></label>
+              <label class="choice-chip"><input type="checkbox" class="sim-check" data-points="20" data-kind="good"><span><strong>ai/specs/</strong><br><span class="small muted">Stable project truth, phases, architecture, and constraints.</span></span></label>
+              <label class="choice-chip"><input type="checkbox" class="sim-check" data-points="15" data-kind="good"><span><strong>ai/rules/</strong><br><span class="small muted">Always-on behavior kept separate from specs and skills.</span></span></label>
+            </div>
+          </div>
+
+          <div class="sim-group">
+            <h4>Reusable procedures</h4>
+            <div class="choice-grid">
+              <label class="choice-chip"><input type="checkbox" class="sim-check" data-points="20" data-kind="good"><span><strong>.agents/skills/</strong><br><span class="small muted">Portable open-standard skills such as discovery, target template creation, and PySpark generation.</span></span></label>
+              <label class="choice-chip"><input type="checkbox" class="sim-check" data-points="8" data-kind="good"><span><strong>Tool-specific workflows</strong><br><span class="small muted">Windsurf wo
       <h2 class="section-title">Mini game: Classify files and earn an AI maturity score</h2>
       <p class="section-sub">Answer each scenario correctly to see how close your repository is to enterprise-grade AI project discipline.</p>
       <div class="maturity-wrap">
@@ -813,153 +1207,4 @@
       });
     });
 
-    const explorerButtons = document.querySelectorAll('.toggle-btn');
-    const explorerViews = document.querySelectorAll('.repo-explorer');
-    explorerButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const view = btn.dataset.view;
-        explorerButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        explorerViews.forEach(panel => {
-          panel.classList.toggle('active', panel.dataset.view === view);
-        });
-      });
-    });
-
-    const itemsContainer = document.querySelector('.items');
-    const slots = document.querySelectorAll('.slot');
-    const status = document.getElementById('gameStatus');
-    let dragged = null;
-
-    function updateStatus() {
-      const allItems = document.querySelectorAll('.drop-item');
-      let correct = 0;
-      allItems.forEach(item => {
-        const parent = item.parentElement;
-        if (parent.classList.contains('slot') && parent.dataset.slot === item.dataset.type) correct++;
-      });
-      status.textContent = `Placed correctly: ${correct} / ${allItems.length}`;
-      if (correct === allItems.length) {
-        status.textContent = 'Placed correctly: 8 / 8 — Nice. You now have a clean mental model for Specs, Rules, Skills, and adapters.';
-      }
-    }
-
-    document.querySelectorAll('.drop-item').forEach(item => {
-      item.addEventListener('dragstart', () => dragged = item);
-      item.addEventListener('dragend', () => dragged = null);
-    });
-
-    slots.forEach(slot => {
-      slot.addEventListener('dragover', e => {
-        e.preventDefault();
-        slot.classList.add('over');
-      });
-      slot.addEventListener('dragleave', () => slot.classList.remove('over'));
-      slot.addEventListener('drop', e => {
-        e.preventDefault();
-        slot.classList.remove('over');
-        if (!dragged) return;
-        slot.appendChild(dragged);
-        updateStatus();
-      });
-    });
-
-    itemsContainer.addEventListener('dragover', e => e.preventDefault());
-    itemsContainer.addEventListener('drop', e => {
-      e.preventDefault();
-      if (dragged) itemsContainer.appendChild(dragged);
-      updateStatus();
-    });
-
-    document.getElementById('resetGame').addEventListener('click', () => {
-      const allItems = Array.from(document.querySelectorAll('.drop-item'));
-      allItems.forEach(item => itemsContainer.appendChild(item));
-      updateStatus();
-    });
-
-    const maturityCards = document.querySelectorAll('.maturity-card');
-    const maturityScore = document.getElementById('maturityScore');
-    const maturityBar = document.getElementById('maturityBar');
-    const maturityBadge = document.getElementById('maturityBadge');
-    const maturityText = document.getElementById('maturityText');
-
-    function renderMaturity() {
-      let correct = 0;
-      let answered = 0;
-      maturityCards.forEach(card => {
-        if (card.dataset.answered === 'true') {
-          answered++;
-          if (card.dataset.correct === 'true') correct++;
-        }
-      });
-      const total = maturityCards.length;
-      const score = Math.round((correct / total) * 100);
-      maturityScore.textContent = `${score}%`;
-      maturityBar.style.width = `${score}%`;
-
-      if (score <= 25) {
-        maturityBadge.textContent = 'Prompt-led';
-        maturityText.textContent = 'This looks like an early-stage setup where most context still lives in chats and repeated prompts.';
-      } else if (score <= 50) {
-        maturityBadge.textContent = 'Early structure';
-        maturityText.textContent = 'You are starting to separate concepts, but the repo still needs clearer project truth and reusable workflows.';
-      } else if (score <= 75) {
-        maturityBadge.textContent = 'Team-ready';
-        maturityText.textContent = 'Your setup is moving toward repeatable engineering discipline with clearer boundaries between specs, rules, skills, and adapters.';
-      } else {
-        maturityBadge.textContent = 'Enterprise-grade';
-        maturityText.textContent = 'This is close to the repo-native AI model enterprises want: canonical context, reusable skills, and thin tool-specific adapters.';
-      }
-
-      if (answered === 0) {
-        maturityText.textContent = 'Answer the challenges to see whether your setup looks like ad hoc prompting, emerging discipline, or an enterprise-grade repo-native AI workflow.';
-      }
-    }
-
-    maturityCards.forEach(card => {
-      const answer = card.dataset.answer;
-      const feedback = card.querySelector('.feedback');
-      card.querySelectorAll('.quiz-option').forEach(btn => {
-        btn.addEventListener('click', () => {
-          if (card.dataset.answered === 'true') return;
-          const choice = btn.dataset.choice;
-          card.dataset.answered = 'true';
-          card.dataset.correct = String(choice === answer);
-          card.querySelectorAll('.quiz-option').forEach(b => {
-            b.disabled = true;
-            if (b.dataset.choice === answer) b.classList.add('correct');
-          });
-          if (choice !== answer) btn.classList.add('wrong');
-
-          if (choice === answer) {
-            feedback.className = 'feedback show good';
-            feedback.textContent = `Correct. ${answer === 'adapter' ? 'This is a tool-specific entry file.' : answer === 'spec' ? 'This describes stable project truth.' : answer === 'rule' ? 'This is persistent behavior.' : 'This is a reusable task procedure.'}`;
-          } else {
-            feedback.className = 'feedback show bad';
-            feedback.textContent = `Not quite. The right classification is ${answer}.`;
-          }
-          renderMaturity();
-        });
-      });
-    });
-
-    document.getElementById('resetMaturity').addEventListener('click', () => {
-      maturityCards.forEach(card => {
-        card.dataset.answered = 'false';
-        card.dataset.correct = 'false';
-        const feedback = card.querySelector('.feedback');
-        feedback.className = 'feedback';
-        feedback.textContent = '';
-        card.querySelectorAll('.quiz-option').forEach(btn => {
-          btn.disabled = false;
-          btn.classList.remove('correct', 'wrong');
-        });
-      });
-      renderMaturity();
-    });
-
-    updateStatus();
-    renderMaturity();
-  </script>
-</body>
-</html>
+    const explorerButtons = docum
